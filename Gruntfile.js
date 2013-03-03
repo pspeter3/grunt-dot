@@ -39,8 +39,7 @@ module.exports = function(grunt) {
       },
       custom_options: {
         options: {
-          separator: ': ',
-          punctuation: ' !!!',
+          root: 'test'
         },
         files: {
           'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123'],
