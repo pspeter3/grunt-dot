@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       templateSettings: {
         selfcontained: true
       },
-      fileExtention: 'dot'
+      fileExtension: 'dot'
     });
 
     // Merge template settings
@@ -53,8 +53,8 @@ module.exports = function(grunt) {
         }
       }).reduce(function(templates, filepath) {
         var names = filepath.split(path.sep);
-        if (options.fileExtention) {
-          names[names.length - 1] = names[names.length - 1].replace('.' + options.fileExtention, '');
+        if (options.fileExtension) {
+          names[names.length - 1] = names[names.length - 1].replace('.' + options.fileExtension, '');
         }
         var template = dot.template(grunt.file.read(filepath));
         assign(templates, names, template);

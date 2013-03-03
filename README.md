@@ -47,7 +47,7 @@ Type: `String`
 
 A string value that is the root key
 
-#### options.fileExtensions
+#### options.fileExtension
 Type: `String`
 Default value: `'dot'`
 
@@ -64,4 +64,4 @@ In lieu of a formal styleguide, take care to maintain the existing coding style.
 
 ## Release History
 
-- 0.1.1 Basic version working
+- 0.1.2 Basic version working
