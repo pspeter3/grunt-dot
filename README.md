@@ -26,11 +26,14 @@ In your project's Gruntfile, add a section named `dot` to the data object passed
 grunt.initConfig({
   dot: {
     options: {
-      // Task-specific options go here.
+      /*
+       * root: Sets the json root
+       * templateSettings: override doT's default settings 
+       */
     },
-    your_target: {
-      // Target-specific file lists and/or options go here.
-    },
+    files: {
+      'target': [/* Files */],
+    }
   },
 })
 ```
