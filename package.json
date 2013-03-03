@@ -1,7 +1,7 @@
 {
   "name": "grunt-dot",
   "description": "Precompile doT templates into a single file",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "https://github.com/pspeter3/grunt-dot",
   "author": {
     "name": "Phips Peter",
@@ -40,5 +40,8 @@
   },
   "keywords": [
     "gruntplugin"
-  ]
+  ],
+  "dependencies": {
+    "tosource": "~0.1.1"
+  }
 }

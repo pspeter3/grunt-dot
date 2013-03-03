@@ -1,1 +1,6 @@
-define(function(){return {"fixtures":{"123":function anonymous(it) {var out='1 2 3';return out;},"testing":function anonymous(it) {var out='Testing';return out;}}}});
+define(function(){return { fixtures:{ "123":function anonymous(it) {
+var out='<div class="row"> <div class="small-12 columns"> <div class="h1">Test</div> </div></div>';return out;
+},
+    testing:function anonymous(it) {
+var out='Testing';return out;
+} } };});

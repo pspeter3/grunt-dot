@@ -14,21 +14,25 @@ module.exports = function(grunt) {
     var dot = require('dot');
     var path = require('path');
     var util = require('util');
+    var toSource = require('tosource');
+
     // Assigns to the template object
     var assign = function(obj, keyPath, value) {
-       var lastKeyIndex = keyPath.length-1;
-       for (var i = 0; i < lastKeyIndex; ++ i) {
-         var key = keyPath[i];
-         if (!(key in obj))
-           obj[key] = {}
-         obj = obj[key];
-       }
-       obj[keyPath[lastKeyIndex]] = value;
+      var lastKeyIndex = keyPath.length - 1;
+      for (var i = 0; i < lastKeyIndex; ++i) {
+        var key = keyPath[i];
+        if (!(key in obj)) obj[key] = {}
+        obj = obj[key];
+      }
+      obj[keyPath[lastKeyIndex]] = value;
     }
 
     // Merge task-specific and/or target-specific options with these defaults.
     var options = this.options({
-      templateSettings: { selfcontained: true }
+      templateSettings: {
+        selfcontained: true
+      },
+      fileExtention: 'dot'
     });
 
     // Merge template settings
@@ -49,7 +53,10 @@ module.exports = function(grunt) {
         }
       }).reduce(function(templates, filepath) {
         var names = filepath.split(path.sep);
-        var template = dot.template(grunt.file.read(filepath)).toString();
+        if (options.fileExtention) {
+          names[names.length - 1] = names[names.length - 1].replace('.' + options.fileExtention, '');
+        }
+        var template = dot.template(grunt.file.read(filepath));
         assign(templates, names, template);
         return templates;
       }, {});
@@ -57,20 +64,11 @@ module.exports = function(grunt) {
       if (options.root && src[options.root]) {
         src = src[options.root];
       }
-      
-      src = JSON.stringify(src);
-      src = src.replace(/\\n/g, '');
-      var matches = src.match(/".+?":".+?"/g);
-      matches.forEach(function(fn) {
-        var match = fn.match(/"(.+?)":"(.+?)"/);
-        var str = util.format('"%s":%s', match[1], match[2]);
-        src = src.replace(fn, str);
-      });
 
-      src = util.format('define(function(){return %s});', src);
+      var js = util.format('define(function(){return %s;});', toSource(src));
 
       // Write the destination file.
-      grunt.file.write(f.dest, src);
+      grunt.file.write(f.dest, js);
 
       // Print a success message.
       grunt.log.writeln('File "' + f.dest + '" created.');
